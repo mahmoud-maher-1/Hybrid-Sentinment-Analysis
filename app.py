@@ -33,7 +33,7 @@ def load_resources(model_name):
         tokenizer = pickle.load(handle)
 
     # Load Model
-    model_path = os.path.join(MODEL_DIR, f"{model_name}.h5")
+    model_path = os.path.join(MODEL_DIR, f"{model_name}.keras")
     model = tf.keras.models.load_model(model_path)
     return tokenizer, model
 
@@ -46,7 +46,8 @@ model_choice = st.sidebar.radio(
 )
 
 st.sidebar.markdown("---")
-st.sidebar.info("Models were trained on the IMDB dataset using Keras.")
+# Edited to remove dataset mention
+st.sidebar.info("Models were trained using Keras.")
 
 # Main Interface
 st.title("🎬 Movie Review Sentiment Analysis")
@@ -87,11 +88,3 @@ if st.button("Analyze Sentiment"):
 
         except Exception as e:
             st.error(f"Error loading model resources. Ensure 'src/main.py' has been run first.\nDetails: {e}")
-
-# Performance Section
-st.markdown("---")
-st.subheader("Model Performance")
-try:
-    st.image(f"Visualizations/{model_choice}_cm.png", caption=f"{model_choice.upper()} Confusion Matrix")
-except:
-    st.info("Run the training pipeline to generate visualizations.")

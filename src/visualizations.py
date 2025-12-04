@@ -1,11 +1,9 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
 import os
-import numpy as np
 
-VIZ_DIR = "Visualizations"
-if not os.path.exists(VIZ_DIR):
-    os.makedirs(VIZ_DIR)
+VIZ_DIR = "../Visualizations"
+if not os.path.exists(VIZ_DIR): os.makedirs(VIZ_DIR)
 
 
 def plot_history(history, model_name):
@@ -24,9 +22,8 @@ def plot_history(history, model_name):
     plt.title(f'{model_name} Loss')
     plt.legend()
 
-    save_path = os.path.join(VIZ_DIR, f"{model_name}_history.png")
     plt.tight_layout()
-    plt.savefig(save_path)
+    plt.savefig(os.path.join(VIZ_DIR, f"{model_name}_history.png"))
     plt.close()
 
 
@@ -34,12 +31,10 @@ def plot_confusion_matrix(cm, model_name):
     plt.figure(figsize=(6, 5))
     sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', cbar=False)
     plt.title(f'{model_name} Confusion Matrix')
-    plt.xlabel('Predicted')
     plt.ylabel('Actual')
-
-    save_path = os.path.join(VIZ_DIR, f"{model_name}_cm.png")
+    plt.xlabel('Predicted')
     plt.tight_layout()
-    plt.savefig(save_path)
+    plt.savefig(os.path.join(VIZ_DIR, f"{model_name}_cm.png"))
     plt.close()
 
 
@@ -54,6 +49,5 @@ def plot_comparison(results):
     for i, v in enumerate(accuracies):
         plt.text(i, v + 0.01, f"{v:.2f}", ha='center')
 
-    save_path = os.path.join(VIZ_DIR, "model_comparison.png")
-    plt.savefig(save_path)
+    plt.savefig(os.path.join(VIZ_DIR, "model_comparison.png"))
     plt.close()
